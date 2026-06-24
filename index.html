@@ -8,410 +8,77 @@
 <meta http-equiv="X-Frame-Options" content="DENY">
 <style>
   * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', Tahoma, sans-serif; }
-  
-  body {
-    height: 100vh;
-    display: flex;
-    flex-direction: column;
-    overflow: hidden;
-    background: linear-gradient(135deg, #1a0f00 0%, #2d1f00 50%, #0f0a00 100%);
-    color: #FFD700;
-  }
-
-  .animated-bg {
-    position: fixed;
-    top: 0; left: 0;
-    width: 100%; height: 100%;
-    z-index: -2;
-    pointer-events: none;
-  }
-
-  .floating-orb {
-    position: absolute;
-    border-radius: 50%;
-    filter: blur(60px);
-    opacity: 0.25;
-    animation: float 15s infinite ease-in-out;
-  }
-
+  body { height: 100vh; display: flex; flex-direction: column; overflow: hidden; background: linear-gradient(135deg, #1a0f00 0%, #2d1f00 50%, #0f0a00 100%); color: #FFD700; }
+  .animated-bg { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -2; pointer-events: none; }
+  .floating-orb { position: absolute; border-radius: 50%; filter: blur(60px); opacity: 0.25; animation: float 15s infinite ease-in-out; }
   .orb-1 { width: 300px; height: 300px; background: radial-gradient(circle, #FFD700, #FF6B00); top: -80px; right: -80px; }
   .orb-2 { width: 250px; height: 250px; background: radial-gradient(circle, #FF6B00, #FF4500); bottom: -50px; left: -50px; animation-delay: -7s; }
   .orb-3 { width: 200px; height: 200px; background: radial-gradient(circle, #FFD700, #FF4500); top: 50%; left: 50%; animation-delay: -14s; }
-
-  @keyframes float {
-    0%, 100% { transform: translate(0, 0) scale(1); }
-    33% { transform: translate(60px, -60px) scale(1.1); }
-    66% { transform: translate(-30px, 40px) scale(0.95); }
-  }
-
-  .particles {
-    position: fixed;
-    top: 0; left: 0;
-    width: 100%; height: 100%;    z-index: -1;
-    pointer-events: none;
-  }
-
-  .particle {
-    position: absolute;
-    width: 3px; height: 3px;
-    background: #FFD700;
-    border-radius: 50%;
-    opacity: 0;
-    animation: sparkle 3s infinite;
-  }
-
-  @keyframes sparkle {
-    0%, 100% { opacity: 0; transform: scale(0); }
-    50% { opacity: 0.6; transform: scale(1); }
-  }
-
-  #loginScreen {
-    position: fixed;
-    top: 0; left: 0;
-    width: 100%; height: 100%;
-    background: linear-gradient(135deg, #0a0500, #1a0f00);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    z-index: 9999;
-  }
-
-  .loginBox {
-    background: #000;
-    border: 2px solid #FFD700;
-    border-radius: 20px;
-    padding: 40px;
-    max-width: 380px;
-    width: 90%;
-    text-align: center;
-  }
-
+  @keyframes float { 0%, 100% { transform: translate(0, 0) scale(1); } 33% { transform: translate(60px, -60px) scale(1.1); } 66% { transform: translate(-30px, 40px) scale(0.95); } }
+  .particles { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -1; pointer-events: none; }
+  .particle { position: absolute; width: 3px; height: 3px; background: #FFD700; border-radius: 50%; opacity: 0; animation: sparkle 3s infinite; }
+  @keyframes sparkle { 0%, 100% { opacity: 0; transform: scale(0); } 50% { opacity: 0.6; transform: scale(1); } }
+  #loginScreen { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: linear-gradient(135deg, #0a0500, #1a0f00); display: flex; justify-content: center; align-items: center; z-index: 9999; }
+  .loginBox { background: #000; border: 2px solid #FFD700; border-radius: 20px; padding: 40px; max-width: 380px; width: 90%; text-align: center; }
   .loginLogo { font-size: 50px; margin-bottom: 15px; }
   .loginTitle { font-size: 26px; color: #FFD700; margin-bottom: 10px; }
   .loginSub { color: #999; margin-bottom: 25px; }
-
-  .loginInput {
-    width: 100%;
-    padding: 12px;
-    background: #111;
-    border: 2px solid #FFD700;
-    border-radius: 10px;
-    color: #FFD700;    font-size: 18px;
-    text-align: center;
-    letter-spacing: 5px;
-    margin-bottom: 15px;
-  }
-
-  .loginBtn {
-    width: 100%;
-    padding: 12px;
-    background: #FFD700;
-    color: #000;
-    border: none;
-    border-radius: 10px;
-    font-size: 16px;
-    font-weight: bold;
-    cursor: pointer;
-  }
-
+  .loginInput { width: 100%; padding: 12px; background: #111; border: 2px solid #FFD700; border-radius: 10px; color: #FFD700; font-size: 18px; text-align: center; letter-spacing: 5px; margin-bottom: 15px; }
+  .loginBtn { width: 100%; padding: 12px; background: #FFD700; color: #000; border: none; border-radius: 10px; font-size: 16px; font-weight: bold; cursor: pointer; }
   .loginError { color: #ff4444; font-size: 13px; margin-top: 10px; min-height: 18px; }
   .hidden { display: none !important; }
-
-  header {
-    padding: 15px 20px;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    flex-shrink: 0;
-    background: rgba(0, 0, 0, 0.4);
-    backdrop-filter: blur(10px);
-    border-bottom: 1px solid rgba(255, 215, 0, 0.2);
-    z-index: 10;
-  }
-
-  header h1 {
-    font-size: 20px;
-    font-weight: 600;
-    background: linear-gradient(135deg, #FFD700, #FF6B00);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-  }
-
+  header { padding: 15px 20px; display: flex; align-items: center; justify-content: space-between; flex-shrink: 0; background: rgba(0, 0, 0, 0.4); backdrop-filter: blur(10px); border-bottom: 1px solid rgba(255, 215, 0, 0.2); z-index: 10; }
+  header h1 { font-size: 20px; font-weight: 600; background: linear-gradient(135deg, #FFD700, #FF6B00); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
   .header-btns { display: flex; gap: 8px; }
-
-  .header-btn {
-    background: rgba(255, 215, 0, 0.1);
-    border: 1px solid rgba(255, 215, 0, 0.3);
-    padding: 6px 14px;
-    border-radius: 20px;
-    font-size: 12px;
-    cursor: pointer;    color: #FFD700;
-  }
-
-  .input-section {
-    padding: 15px 20px;
-    background: rgba(0, 0, 0, 0.5);
-    backdrop-filter: blur(10px);
-    border-bottom: 1px solid rgba(255, 215, 0, 0.2);
-    flex-shrink: 0;
-  }
-
-  .input-wrapper {
-    display: flex;
-    align-items: flex-start;
-    gap: 10px;
-    border: 2px solid rgba(255, 215, 0, 0.3);
-    border-radius: 20px;
-    padding: 12px 15px;
-    background: rgba(0, 0, 0, 0.6);
-    direction: ltr;
-  }
-
-  .attach-btn, .mic-btn {
-    background: none;
-    border: none;
-    color: #FFD700;
-    font-size: 22px;
-    cursor: pointer;
-    padding: 8px 5px;
-    flex-shrink: 0;
-    opacity: 0.7;
-  }
-
+  .header-btn { background: rgba(255, 215, 0, 0.1); border: 1px solid rgba(255, 215, 0, 0.3); padding: 6px 14px; border-radius: 20px; font-size: 12px; cursor: pointer; color: #FFD700; }
+  .input-section { padding: 15px 20px; background: rgba(0, 0, 0, 0.5); backdrop-filter: blur(10px); border-bottom: 1px solid rgba(255, 215, 0, 0.2); flex-shrink: 0; }
+  .input-wrapper { display: flex; align-items: flex-start; gap: 10px; border: 2px solid rgba(255, 215, 0, 0.3); border-radius: 20px; padding: 12px 15px; background: rgba(0, 0, 0, 0.6); direction: ltr; }
+  .attach-btn, .mic-btn { background: none; border: none; color: #FFD700; font-size: 22px; cursor: pointer; padding: 8px 5px; flex-shrink: 0; opacity: 0.7; }
   .attach-btn:hover, .mic-btn:hover { opacity: 1; }
-
-  textarea {
-    flex: 1;
-    background: transparent;
-    border: none;
-    font-size: 16px;
-    resize: none;
-    outline: none;
-    min-height: 80px;
-    max-height: 150px;
-    direction: rtl;
-    color: #FFD700;
-    line-height: 1.5;
-  }
-
-  .send-btn {    background: none;
-    border: none;
-    color: #FFD700;
-    font-size: 26px;
-    cursor: pointer;
-    padding: 8px 5px;
-    flex-shrink: 0;
-  }
-
+  textarea { flex: 1; background: transparent; border: none; font-size: 16px; resize: none; outline: none; min-height: 80px; max-height: 150px; direction: rtl; color: #FFD700; line-height: 1.5; }
+  .send-btn { background: none; border: none; color: #FFD700; font-size: 26px; cursor: pointer; padding: 8px 5px; flex-shrink: 0; }
   .send-btn:active { transform: scale(0.9); }
-
-  /* ===== صرف یہاں تبدیلی - explicit height ===== */
-  #chat-container {
-    width: 100%;
-    height: calc(100vh - 320px);
-    overflow-y: auto;
-    overflow-x: hidden;
-    padding: 20px;
-    display: flex;
-    flex-direction: column;
-    gap: 15px;
-    -webkit-overflow-scrolling: touch;
-  }
-
-  #chat-container::-webkit-scrollbar {
-    width: 6px;
-  }
-
-  #chat-container::-webkit-scrollbar-track {
-    background: rgba(0, 0, 0, 0.2);
-  }
-
-  #chat-container::-webkit-scrollbar-thumb {
-    background: rgba(255, 215, 0, 0.3);
-    border-radius: 3px;
-  }
-
-  .message-wrapper {
-    max-width: 80%;
-    animation: fadeIn 0.3s ease;
-  }
-
+  #chat-container { width: 100%; height: calc(100vh - 320px); overflow-y: auto; overflow-x: hidden; padding: 20px; display: flex; flex-direction: column; gap: 15px; -webkit-overflow-scrolling: touch; }
+  #chat-container::-webkit-scrollbar { width: 6px; }
+  #chat-container::-webkit-scrollbar-track { background: rgba(0, 0, 0, 0.2); }
+  #chat-container::-webkit-scrollbar-thumb { background: rgba(255, 215, 0, 0.3); border-radius: 3px; }
+  .message-wrapper { max-width: 80%; animation: fadeIn 0.3s ease; }
   .message-wrapper.user { align-self: flex-end; }
   .message-wrapper.bot { align-self: flex-start; }
-
-  .message {
-    padding: 12px 18px;
-    border-radius: 20px;
-    font-size: 16px;
-    line-height: 1.6;    word-wrap: break-word;
-    background: rgba(255, 255, 255, 0.05);
-    border: 1px solid rgba(255, 215, 0, 0.2);
-  }
-
-  @keyframes fadeIn {
-    from { opacity: 0; transform: translateY(10px); }
-    to { opacity: 1; transform: translateY(0); }
-  }
-
-  .user-msg {
-    background: rgba(255, 215, 0, 0.15);
-    border-color: rgba(255, 215, 0, 0.4);
-  }
-
-  .message-actions {
-    display: flex;
-    gap: 6px;
-    margin-top: 6px;
-    padding: 0 5px;
-  }
-
-  .action-btn {
-    background: rgba(255, 215, 0, 0.08);
-    border: 1px solid rgba(255, 215, 0, 0.2);
-    color: #FFD700;
-    cursor: pointer;
-    padding: 3px 10px;
-    border-radius: 12px;
-    font-size: 11px;
-    transition: all 0.3s;
-  }
-
-  .action-btn:hover { 
-    background: rgba(255, 215, 0, 0.2); 
-  }
-  
-  .action-btn.liked { 
-    background: #ff4444; 
-    color: #fff;
-    border-color: #ff4444;
-  }
-
-  .file-preview {
-    padding: 8px 20px;
-    display: none;
-    align-items: center;
-    gap: 10px;
-    font-size: 13px;
-    opacity: 0.7;    color: #FFD700;
-  }
-
+  .message { padding: 12px 18px; border-radius: 20px; font-size: 16px; line-height: 1.6; word-wrap: break-word; background: rgba(255, 255, 255, 0.05); border: 1px solid rgba(255, 215, 0, 0.2); }
+  @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+  .user-msg { background: rgba(255, 215, 0, 0.15); border-color: rgba(255, 215, 0, 0.4); }
+  .message-actions { display: flex; gap: 6px; margin-top: 6px; padding: 0 5px; }
+  .action-btn { background: rgba(255, 215, 0, 0.08); border: 1px solid rgba(255, 215, 0, 0.2); color: #FFD700; cursor: pointer; padding: 3px 10px; border-radius: 12px; font-size: 11px; transition: all 0.3s; }
+  .action-btn:hover { background: rgba(255, 215, 0, 0.2); }
+  .action-btn.liked { background: #ff4444; color: #fff; border-color: #ff4444; }
+  .file-preview { padding: 8px 20px; display: none; align-items: center; gap: 10px; font-size: 13px; opacity: 0.7; color: #FFD700; }
   .file-preview.show { display: flex; }
   .file-preview .remove-file { cursor: pointer; color: #ff4444; }
-
-  .modal {
-    display: none;
-    position: fixed;
-    top: 0; left: 0; right: 0; bottom: 0;
-    background: rgba(0, 0, 0, 0.8);
-    z-index: 1000;
-    align-items: center;
-    justify-content: center;
-    padding: 20px;
-  }
-
+  .modal { display: none; position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0, 0, 0, 0.8); z-index: 1000; align-items: center; justify-content: center; padding: 20px; }
   .modal.show { display: flex; }
-
-  .modal-content {
-    background: #1a1a1a;
-    color: #fff;
-    border-radius: 20px;
-    padding: 25px;
-    max-width: 500px;
-    width: 100%;
-    max-height: 90vh;
-    overflow-y: auto;
-  }
-
-  .modal-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 20px;
-    padding-bottom: 15px;
-    border-bottom: 1px solid #333;
-  }
-
+  .modal-content { background: #1a1a1a; color: #fff; border-radius: 20px; padding: 25px; max-width: 500px; width: 100%; max-height: 90vh; overflow-y: auto; }
+  .modal-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; padding-bottom: 15px; border-bottom: 1px solid #333; }
   .modal-header h2 { font-size: 20px; color: #FFD700; }
   .close-modal { background: none; border: none; color: #fff; font-size: 28px; cursor: pointer; }
   .theme-option { margin-bottom: 20px; }
   .theme-option label { display: block; margin-bottom: 8px; font-size: 14px; color: #888; }
-
-  .color-input-wrapper {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-  }
-  input[type="color"] {
-    width: 50px;
-    height: 40px;
-    border: none;
-    border-radius: 8px;
-    cursor: pointer;
-  }
-
-  input[type="text"] {
-    flex: 1;
-    padding: 10px;
-    background: #2a2a2a;
-    border: 1px solid #333;
-    border-radius: 8px;
-    color: #fff;
-    font-family: monospace;
-  }
-
-  .btn-save {
-    width: 100%;
-    padding: 12px;
-    background: #4CAF50;
-    color: #fff;
-    border: none;
-    border-radius: 10px;
-    font-size: 16px;
-    cursor: pointer;
-    margin-top: 10px;
-  }
-
-  .saved-themes {
-    margin-top: 20px;
-    padding-top: 20px;
-    border-top: 1px solid #333;
-  }
-
+  .color-input-wrapper { display: flex; align-items: center; gap: 10px; }
+  input[type="color"] { width: 50px; height: 40px; border: none; border-radius: 8px; cursor: pointer; }
+  input[type="text"] { flex: 1; padding: 10px; background: #2a2a2a; border: 1px solid #333; border-radius: 8px; color: #fff; font-family: monospace; }
+  .btn-save { width: 100%; padding: 12px; background: #4CAF50; color: #fff; border: none; border-radius: 10px; font-size: 16px; cursor: pointer; margin-top: 10px; }
+  .saved-themes { margin-top: 20px; padding-top: 20px; border-top: 1px solid #333; }
   .saved-themes h3 { font-size: 16px; margin-bottom: 10px; color: #888; }
   .theme-list { display: flex; flex-direction: column; gap: 8px; }
-
-  .theme-item {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 10px;
-    background: #2a2a2a;
-    border-radius: 8px;
-    cursor: pointer;
-    transition: all 0.3s;
-  }
+  .theme-item { display: flex; justify-content: space-between; align-items: center; padding: 10px; background: #2a2a2a; border-radius: 8px; cursor: pointer; transition: all 0.3s; }
   .theme-item:hover { background: #333; }
   .theme-item-name { font-size: 14px; }
   .theme-item-actions { display: flex; gap: 5px; }
-
-  .theme-item-actions button {
-    padding: 5px 10px;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    font-size: 12px;
-  }
-
+  .theme-item-actions button { padding: 5px 10px; border: none; border-radius: 5px; cursor: pointer; font-size: 12px; }
   .btn-apply { background: #4CAF50; color: #fff; }
   .btn-delete { background: #ff4444; color: #fff; }
   .btn-export { background: #2196F3; color: #fff; }
-  .preview-box {
-    margin-top: 15px;
-    padding: 15px;
-    border-radius: 10px;
-    text-align: center;
-    font-size: 14px;
-  }
+  .preview-box { margin-top: 15px; padding: 15px; border-radius: 10px; text-align: center; font-size: 14px; }
 </style>
 </head>
 <body>
@@ -439,12 +106,13 @@
     <h1>GMD Spark</h1>
     <div class="header-btns">
       <button class="header-btn" onclick="openThemeEditor()">تھیم</button>
-      <button class="header-btn" onclick="openApiModal()">API Key</button>    </div>
+      <button class="header-btn" onclick="openApiModal()">API Key</button>
+    </div>
   </header>
 
   <div class="input-section">
     <div class="input-wrapper">
-      <button class="attach-btn" onclick="document.getElementById('fileInput').click()">📎</button>
+      <button class="attach-btn" onclick="document.getElementById('fileInput').click()"></button>
       <input type="file" id="fileInput" style="display:none" onchange="handleFile(this)">
       <textarea id="userInput" rows="4" placeholder="اپنا پیغام لکھیں..."></textarea>
       <button class="mic-btn" onclick="startVoice()">🎤</button>
@@ -452,8 +120,7 @@
     </div>
   </div>
 
-  <div id="chat-container">
-  </div>
+  <div id="chat-container"></div>
 
   <div class="file-preview" id="filePreview">
     <span id="fileInfo">فائل</span>
@@ -463,14 +130,14 @@
   <div class="modal" id="apiModal">
     <div class="modal-content">
       <div class="modal-header">
-        <h2>API Key "pro_cd08ad44bdc2d429c19bcffe590f4f3926dd5c2de8f630c3499f60fa0f941f92" ≤/h2>
+        <h2>API Key درج کریں</h2>
         <button class="close-modal" onclick="closeApiModal()">✕</button>
       </div>
       <div class="theme-option">
-        <label>"pro_cd08ad44bdc2d429c19bcffe590f4f3926dd5c2de8f630c3499f60fa0f941f92"</label></label>
-        <input type="text" id="apiKeyInput" placeholder="pro_cd08ad44bdc2d429c19bcffe590f4f3926dd5c2de8f630c3499f60fa0f941f92" style="width:100%;padding:12px;background:#2a2a2a;border:1px solid #333;border-radius:8px;color:#FFD700;">
+        <label>اپنی API Key یہاں درج کریں:</label>
+        <input type="text" id="apiKeyInput" placeholder="Enter your API key here..." style="width:100%;padding:12px;background:#2a2a2a;border:1px solid #333;border-radius:8px;color:#FFD700;">
       </div>
-      <button class="btn-save" onclick="saveApiKey(pro_cd08ad44bdc2d429c19bcffe590f4f3926dd5c2de8f630c3499f60fa0f941f92)">محفوظ کریں</button>
+      <button class="btn-save" onclick="saveApiKey()">محفوظ کریں</button>
     </div>
   </div>
 
@@ -478,7 +145,7 @@
     <div class="modal-content">
       <div class="modal-header">
         <h2>تھیم بنائیں</h2>
-        <button class="close-modal" onclick="closeThemeEditor()">✕</button>
+        <button class="close-modal" onclick="closeThemeEditor()"></button>
       </div>
       <div class="theme-option">
         <label>تھیم کا نام:</label>
@@ -488,7 +155,8 @@
         <label>بیک گراؤنڈ رنگ:</label>
         <div class="color-input-wrapper">
           <input type="color" id="bgColor" value="#1a0f00">
-          <input type="text" id="bgColorText" value="#1a0f00">        </div>
+          <input type="text" id="bgColorText" value="#1a0f00">
+        </div>
       </div>
       <div class="theme-option">
         <label>ٹیکسٹ رنگ:</label>
@@ -532,19 +200,33 @@
 </div>
 
 <script>
+// ====== کیل نمبر 1: API URL سیٹ کریں ======
+const API_URL = "https://gmd-spark-server.vercel.app/api/chat"; // ← آپ کا اصلی API لنک
+const PROJECT_HASH = "pro_cd08ad44bdc2d429c19bcffe590f4f3926dd5c2de8f630c3499f60fa0f941f92";
+
+// SHA-256 ہیش فنکشن
+async function generateHash(message) {
+  const encoder = new TextEncoder();
+  const data = encoder.encode(message);
+  const hashBuffer = await crypto.subtle.digest('SHA-256', data);
+  const hashArray = Array.from(new Uint8Array(hashBuffer));
+  return hashArray.map(b => b.toString(16).padStart(2, '0')).join('');
+}
+
 function checkPass() {
   var p = document.getElementById('passInput').value;
   if (p === '1611') {
     document.getElementById('loginScreen').style.display = 'none';
     document.getElementById('mainApp').classList.remove('hidden');
-    initApp();  } else {
+    initApp();
+  } else {
     document.getElementById('loginError').innerText = 'Wrong password!';
     setTimeout(function() { document.getElementById('loginError').innerText = ''; }, 2000);
   }
 }
 
-document.endpoint('passInput').addEventListener('keypress', function(e) {
-  if (e.key pro_cd08ad44bdc2d429c19bcffe590f4f3926dd5c2de8f630c3499f60fa0f941f92=== 'Enter') checkPass();
+document.getElementById('passInput').addEventListener('keypress', function(e) {
+  if (e.key === 'Enter') checkPass();
 });
 
 function initApp() {
@@ -566,63 +248,61 @@ var filePreview = document.getElementById('filePreview');
 var fileInfo = document.getElementById('fileInfo');
 var currentFile = null;
 var customThemes = JSON.parse(localStorage.getItem('gmdSparkThemes')) || [];
-var apiKey = localStorage.getItem('gmdSparkApiKey') || '';
 
 ['bgColor', 'textColor', 'inputBgColor', 'userMsgColor', 'borderColor'].forEach(function(id) {
   var colorInput = document.getElementById(id);
   var textInput = document.getElementById(id + 'Text');
-  
-  colorInput.addEventListener('input', function(e) {
-    textInput.value = e.target.value;
-    updatePreview();
-  });
-  
+  colorInput.addEventListener('input', function(e) { textInput.value = e.target.value; updatePreview(); });
   textInput.addEventListener('input', function(e) {
-    if (/^#[0-9A-Fa-f]{6}$/.test(e.target.value)) {
-      colorInput.value = e.target.value;
-      updatePreview();
-    }
+    if (/^#[0-9A-Fa-f]{6}$/.test(e.target.value)) { colorInput.value = e.target.value; updatePreview(); }
   });
 });
 
 function updatePreview() {
-  var preview = document.getElementById('themePreview');  preview.style.background = document.getElementById('bgColor').value;
+  var preview = document.getElementById('themePreview');
+  preview.style.background = document.getElementById('bgColor').value;
   preview.style.color = document.getElementById('textColor').value;
   preview.style.border = '1px solid ' + document.getElementById('borderColor').value;
 }
 
-function openThemeEditor() {
-  document.getElementById('themeModal').classList.add('show');
-  renderSavedThemes();
-}
+function openThemeEditor() { document.getElementById('themeModal').classList.add('show'); renderSavedThemes(); }
+function closeThemeEditor() { document.getElementById('themeModal').classList.remove('show'); }
+function openApiModal() { document.getElementById('apiModal').classList.add('show'); }
+function closeApiModal() { document.getElementById('apiModal').classList.remove('show'); }
 
-function closeThemeEditor() {
-  document.getElementById('themeModal').classList.remove('show');
-}
-
-function openApiModal() {
-  document.getElementById('apiModal').classList.add('show');
-  document.getElementById('apiKeyInput').value = apiKey;
-}
-
-function closeApiModal() {
-  document.getElementById('apiModal').classList.remove('show');
-}
-
-function saveApiKey() {
-  apiKey = document.getElementById('apiKeyInput').value.trim();
-  localStorage.setItem('gmdSparkApiKey', apiKey);
-  alert('API Key محفوظ ہو گئی!');
+// ====== کیل نمبر 2: API Key محفوظ کریں + SHA-256 ======
+async function saveApiKey() {
+  var key = document.getElementById('apiKeyInput').value.trim();
+  if (key) {
+    try {
+      const hash = await generateHash(key);
+      // API کو ٹیسٹ کال بھیجیں
+      const response = await fetch(API_URL, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'X-Project-Hash': PROJECT_HASH
+        },
+        body: JSON.stringify({ message: "test", hash: hash })
+      });
+      const data = await response.json();
+      if (data.reply) {
+        alert('✅ API Connected! Hash: ' + hash.substring(0, 16) + '...');
+      } else {
+        alert('⚠️ API Response: ' + JSON.stringify(data));
+      }
+    } catch (e) {
+      alert('❌ Connection Error: ' + e.message);
+    }
+  }
   closeApiModal();
 }
 
 function saveCustomTheme() {
   var name = document.getElementById('themeName').value.trim();
   if (!name) { alert('براہ کرم تھیم کا نام درج کریں'); return; }
-
   var theme = {
-    name: name,
-    id: 'custom-' + Date.now(),
+    name: name, id: 'custom-' + Date.now(),
     colors: {
       bg: document.getElementById('bgColor').value,
       text: document.getElementById('textColor').value,
@@ -631,11 +311,11 @@ function saveCustomTheme() {
       border: document.getElementById('borderColor').value
     }
   };
-
   customThemes.push(theme);
   localStorage.setItem('gmdSparkThemes', JSON.stringify(customThemes));
   applyCustomTheme(theme);
-  renderSavedThemes();  document.getElementById('themeName').value = '';
+  renderSavedThemes();
+  document.getElementById('themeName').value = '';
   alert('تھیم محفوظ ہو گیا!');
 }
 
@@ -643,7 +323,6 @@ function applyCustomTheme(theme) {
   document.body.className = '';
   var oldStyle = document.getElementById('custom-theme-style');
   if (oldStyle) oldStyle.remove();
-  
   var style = document.createElement('style');
   style.id = 'custom-theme-style';
   style.textContent = 
@@ -653,14 +332,12 @@ function applyCustomTheme(theme) {
     'body .input-wrapper { background: ' + theme.colors.inputBg + '; border-color: ' + theme.colors.border + '; }' +
     'body textarea { color: ' + theme.colors.text + '; }' +
     'body .message { background: ' + theme.colors.userMsg + '; border-color: ' + theme.colors.border + '; }';
-  
   document.head.appendChild(style);
 }
 
 function renderSavedThemes() {
   var list = document.getElementById('savedThemesList');
   list.innerHTML = '';
-  
   customThemes.forEach(function(theme) {
     var item = document.createElement('div');
     item.className = 'theme-item';
@@ -684,155 +361,149 @@ function deleteTheme(themeId) {
     customThemes = customThemes.filter(function(t) { return t.id !== themeId; });
     localStorage.setItem('gmdSparkThemes', JSON.stringify(customThemes));
     renderSavedThemes();
-  }}
+  }
+}
 
 function exportThemes() {
   var dataStr = JSON.stringify(customThemes, null, 2);
   var blob = new Blob([dataStr], { type: 'application/json' });
   var url = URL.createObjectURL(blob);
   var a = document.createElement('a');
-  a.href = url;
-  a.download = 'gmd-spark-themes.json';
-  a.click();
+  a.href = url; a.download = 'gmd-spark-themes.json'; a.click();
   URL.revokeObjectURL(url);
 }
 
 function importThemes(input) {
-  var file = input.files[0];
-  if (!file) return;
-  
+  var file = input.files[0]; if (!file) return;
   var reader = new FileReader();
   reader.onload = function(e) {
     try {
       var themes = JSON.parse(e.target.result);
       customThemes = [...customThemes, ...themes];
       localStorage.setItem('gmdSparkThemes', JSON.stringify(customThemes));
-      renderSavedThemes();
-      alert('تھیمز کامیابی سے امپورٹ ہو گئے!');
-    } catch (err) {
-      alert('غلط فائل');
-    }
+      renderSavedThemes(); alert('تھیمز کامیابی سے امپورٹ ہو گئے!');
+    } catch (err) { alert('غلط فائل'); }
   };
   reader.readAsText(file);
 }
 
 userInput.addEventListener('keypress', function(e) {
-  if (e.key === 'Enter' && !e.shiftKey) {
-    e.preventDefault();
-    sendMessage();
-  }
+  if (e.key === 'Enter' && !e.shiftKey) { e.preventDefault(); sendMessage(); }
 });
-
-userInput.addEventListener('input', function() {
-  this.style.height = 'auto';
-  this.style.height = (this.scrollHeight) + 'px';
-});
+userInput.addEventListener('input', function() { this.style.height = 'auto'; this.style.height = (this.scrollHeight) + 'px'; });
 
 function handleFile(input) {
   if (input.files && input.files[0]) {
     currentFile = input.files[0];
     fileInfo.textContent = currentFile.name;
     filePreview.classList.add('show');
-  }}
-
-function removeFile() {
-  currentFile = null;
-  document.getElementById('fileInput').value = '';
-  filePreview.classList.remove('show');
+  }
 }
+function removeFile() { currentFile = null; document.getElementById('fileInput').value = ''; filePreview.classList.remove('show'); }
 
-function sendMessage() {
+// ====== کیل نمبر 3: sendMessage میں API کال + SHA-256 ======
+async function sendMessage() {
   var text = userInput.value.trim();
   if (!text && !currentFile) return;
   
   if (text) addMessage(text, 'user');
   if (currentFile) addMessage(currentFile.name, 'user');
 
-  userInput.value = '';
-  userInput.style.height = 'auto';
-  removeFile();
+  userInput.value = ''; userInput.style.height = 'auto'; removeFile();
   chatContainer.scrollTop = chatContainer.scrollHeight;
 
-  setTimeout(function() {
-    var reply = getBotReply(text);
-    addMessage(reply, 'bot');
-    chatContainer.scrollTop = chatContainer.scrollHeight;
-  }, 800);
+  // Loading indicator
+  var loadingId = 'load-' + Date.now();
+  chatContainer.innerHTML += '<div class="message-wrapper bot"><div class="message">...</div></div>';
+  chatContainer.scrollTop = chatContainer.scrollHeight;
+
+  try {
+    // SHA-256 ہیش بنائیں
+    const messageHash = await generateHash(text);
+    
+    // API کو کال کریں
+    const response = await fetch(API_URL, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'X-Project-Hash': PROJECT_HASH
+      },
+      body: JSON.stringify({
+        message: text,
+        hash: messageHash,
+        timestamp: new Date().toISOString()
+      })
+    });
+    
+    const data = await response.json();
+    
+    // پرانا لوڈنگ میسج ہٹائیں
+    document.getElementById(loadingId)?.parentNode?.remove();
+    
+    // جواب دکھائیں + ہیش
+    addMessage(data.reply + '<br><small style="opacity:0.6;font-family:monospace">🔐 ' + (data.hash || messageHash).substring(0,16) + '...</small>', 'bot');
+    
+  } catch (error) {
+    // ایرر ہینڈلنگ
+    document.getElementById(loadingId)?.parentNode?.remove();
+    addMessage('⚠️ کنکشن ایرر: ' + error.message, 'bot');
+  }
+  
+  chatContainer.scrollTop = chatContainer.scrollHeight;
 }
 
 function addMessage(text, type) {
   var wrapper = document.createElement('div');
   wrapper.className = 'message-wrapper ' + type;
-  
   var msg = document.createElement('div');
   msg.className = 'message ' + (type === 'user' ? 'user-msg' : '');
-  msg.textContent = text;
+  msg.innerHTML = text; // innerHTML تاکہ ہیش فارمیٹنگ کام کرے
   wrapper.appendChild(msg);
-  
   var actions = document.createElement('div');
   actions.className = 'message-actions';
   actions.innerHTML = 
-    '<button class="action-btn" onclick="likeMsg(this)"> Like</button>' +
-    '<button class="action-btn" onclick="commentMsg(this)"> Comment</button>' +
-    '<button class="action-btn" onclick="shareMsg(this)">📤 Share</button>';
+    '<button class="action-btn" onclick="likeMsg(this)">Like</button>' +
+    '<button class="action-btn" onclick="commentMsg(this)">Comment</button>' +
+    '<button class="action-btn" onclick="shareMsg(this)">Share</button>';
   wrapper.appendChild(actions);
-  
   chatContainer.appendChild(wrapper);
 }
 
 function likeMsg(btn) {
-  if (btn.classList.contains('liked')) {
-    btn.classList.remove('liked');    btn.innerHTML = '👍 Like';
-  } else {
-    btn.classList.add('liked');
-    btn.innerHTML = '❤️ Liked';
-  }
+  if (btn.classList.contains('liked')) { btn.classList.remove('liked'); btn.innerHTML = 'Like'; }
+  else { btn.classList.add('liked'); btn.innerHTML = 'Liked'; }
 }
-
-function commentMsg(btn) {
-  var comment = prompt('اپنا تبصرہ لکھیں:');
-  if (comment) alert('تبصرہ محفوظ ہو گیا: ' + comment);
-}
-
+function commentMsg(btn) { var c = prompt('اپنا تبصرہ لکھیں:'); if (c) alert('تبصرہ محفوظ: ' + c); }
 function shareMsg(btn) {
-  var msgText = btn.parentElement.parentElement.querySelector('.message').textContent;
-  if (navigator.share) {
-    navigator.share({ title: 'GMD Spark', text: msgText, url: window.location.href });
+  var txt = btn.parentElement.parentElement.querySelector('.message').textContent;
+  if (navigator.share) navigator.share({ title: 'GMD Spark', text: txt, url: window.location.href });
+  else alert('پیغام: ' + txt);
+}
+
+// ====== کیل نمبر 4: Voice Recognition (اختیاری) ======
+function startVoice() {
+  if ('webkitSpeechRecognition' in window) {
+    var recognition = new webkitSpeechRecognition();
+    recognition.lang = 'ur-PK';
+    recognition.onresult = function(e) {
+      userInput.value = e.results[0][0].transcript;
+      userInput.dispatchEvent(new Event('input'));
+    };
+    recognition.start();
   } else {
-    alert('پیغام: ' + msgText);
+    alert('آپ کا براؤزر وائس سپورٹ نہیں کرتا');
   }
 }
 
-function startVoice() {
-  alert('مائیک فعال ہو گیا - بولیں...');
-}
-
-function getBotReply(input) {
-  if (!input) return 'جی فرمائیں؟';
-  input = input.toLowerCase();
-  if (input.includes('سلام') || input.includes('hi')) return 'وعلیکم السلام! کیسے ہیں آپ؟';
-  if (input.includes('کیسے ہو')) return 'میں بالکل ٹھیک ہوں، آپ سنائیں؟';
-  if (input.includes('نام')) return 'میرا نام GMD Spark ہے۔';
-  return 'میں ابھی سیکھ رہا ہوں، لیکن آپ کا ساتھ بہت اچھا لگ رہا ہے!';
-}
-
-document.getElementById('themeModal').addEventListener('click', function(e) {
-  if (e.target.id === 'themeModal') closeThemeEditor();
-});
-
-document.getElementById('apiModal').addEventListener('click', function(e) {
-  if (e.target.id === 'apiModal') closeApiModal();
-});
-
+// Security: Disable right-click, copy, dev tools
 document.addEventListener('contextmenu', function(e) { e.preventDefault(); return false; });
 document.addEventListener('selectstart', function(e) { e.preventDefault(); return false; });
 document.addEventListener('copy', function(e) { e.preventDefault(); return false; });
 document.addEventListener('keydown', function(e) {
   if (e.key === 'F12' || (e.ctrlKey && e.shiftKey && (e.key === 'I' || e.key === 'J'))) {
-    e.preventDefault();
-    return false;
-  }});
+    e.preventDefault(); return false;
+  }
+});
 </script>
-
 </body>
 </html>
